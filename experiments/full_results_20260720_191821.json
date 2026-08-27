@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-07-20T19:18:21.388059",
+  "dataset": "WikiText-2 (full, normalized to 28-char alphabet)",
+  "ctw_results": [
+    {
+      "depth": 3,
+      "bpc": 2.5570782756083053,
+      "perplexity": 5.885146282301361,
+      "train_time_s": 182.4,
+      "eval_time_s": 17.2
+    },
+    {
+      "depth": 5,
+      "bpc": 2.169990587810375,
+      "perplexity": 4.500204579177628,
+      "train_time_s": 293.8,
+      "eval_time_s": 27.0
+    },
+    {
+      "depth": 7,
+      "bpc": 2.1620976409223123,
+      "perplexity": 4.4756513038694,
+      "train_time_s": 401.5,
+      "eval_time_s": 34.9
+    },
+    {
+      "depth": 10,
+      "bpc": 2.1839544934754485,
+      "perplexity": 4.543973727598927,
+      "train_time_s": 563.9,
+      "eval_time_s": 41.4
+    }
+  ],
+  "gpt2_result": {
+    "model": "gpt2",
+    "n_tokens": 214503,
+    "n_chars": 1051557,
+    "chars_per_token": 4.902,
+    "ppl_token": 50.4278,
+    "bpc_per_token": 5.656147,
+    "bpc_per_char": 1.153775,
+    "perplexity_char": 2.225,
+    "eval_time_s": 92.7
+  },
+  "train_chars": 10023770,
+  "val_chars": 1051557,
+  "vocab_size": 28
+}

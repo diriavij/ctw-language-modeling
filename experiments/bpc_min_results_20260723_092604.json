@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-07-23T09:26:30.539382",
+  "source": "train (10,023,770 chars)",
+  "depths": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "bpc_min_results": [
+    {
+      "depth": 0,
+      "bpc_min": 4.146983071418631,
+      "n_unique_ctx": 1,
+      "n_unique_ngrams": 28,
+      "coverage": 1.0,
+      "time_s": 0.17
+    },
+    {
+      "depth": 1,
+      "bpc_min": 3.4104098409547414,
+      "n_unique_ctx": 28,
+      "n_unique_ngrams": 711,
+      "coverage": 1.0,
+      "time_s": 1.1
+    },
+    {
+      "depth": 2,
+      "bpc_min": 2.882650677913574,
+      "n_unique_ctx": 711,
+      "n_unique_ngrams": 10250,
+      "coverage": 0.9817,
+      "time_s": 1.35
+    },
+    {
+      "depth": 3,
+      "bpc_min": 2.3352467206863547,
+      "n_unique_ctx": 10250,
+      "n_unique_ngrams": 69114,
+      "coverage": 0.8887,
+      "time_s": 1.58
+    },
+    {
+      "depth": 4,
+      "bpc_min": 1.9142222921211514,
+      "n_unique_ctx": 69114,
+      "n_unique_ngrams": 258579,
+      "coverage": 0.7898,
+      "time_s": 1.98
+    },
+    {
+      "depth": 5,
+      "bpc_min": 1.6405322918647374,
+      "n_unique_ctx": 258579,
+      "n_unique_ngrams": 683252,
+      "coverage": 0.689,
+      "time_s": 2.52
+    },
+    {
+      "depth": 6,
+      "bpc_min": 1.416993106835283,
+      "n_unique_ctx": 683251,
+      "n_unique_ngrams": 1380326,
+      "coverage": 0.591,
+      "time_s": 3.45
+    },
+    {
+      "depth": 7,
+      "bpc_min": 1.205129094398605,
+      "n_unique_ctx": 1380325,
+      "n_unique_ngrams": 2288094,
+      "coverage": 0.4936,
+      "time_s": 4.81
+    }
+  ],
+  "word_entropy": {
+    "n_words": 1694397,
+    "vocab_size": 61884,
+    "avg_word_length": 4.866,
+    "H_word_bits": 10.7931,
+    "predicted_pos0_gap": 10.7931,
+    "predicted_bpc_contribution_pos0": 1.8399,
+    "observed_ctw_pos0": 3.9411,
+    "observed_gpt2_pos0": 1.3131,
+    "observed_gap_pos0": 2.628
+  },
+  "ctw_reference": {
+    "3": 2.5570782756083053,
+    "5": 2.169990587810375,
+    "7": 2.1620976409223123,
+    "10": 2.1839544934754485
+  },
+  "gpt2_reference": 1.153775
+}

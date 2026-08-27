@@ -1,0 +1,42 @@
+[
+  {
+    "depth": 3,
+    "bpc": 2.579165794933137,
+    "perplexity": 5.975940545813001,
+    "train_chars": 2000000,
+    "eval_chars": 200000,
+    "vocab_size": 28,
+    "train_time_s": 35.5,
+    "eval_time_s": 3.2
+  },
+  {
+    "depth": 5,
+    "bpc": 2.3447672452084185,
+    "perplexity": 5.0797843255337085,
+    "train_chars": 2000000,
+    "eval_chars": 200000,
+    "vocab_size": 28,
+    "train_time_s": 57.7,
+    "eval_time_s": 5.0
+  },
+  {
+    "depth": 7,
+    "bpc": 2.361254509364722,
+    "perplexity": 5.138169593088164,
+    "train_chars": 2000000,
+    "eval_chars": 200000,
+    "vocab_size": 28,
+    "train_time_s": 79.5,
+    "eval_time_s": 6.0
+  },
+  {
+    "depth": 10,
+    "bpc": 2.3736478406495984,
+    "perplexity": 5.182498668412114,
+    "train_chars": 2000000,
+    "eval_chars": 200000,
+    "vocab_size": 28,
+    "train_time_s": 110.5,
+    "eval_time_s": 6.6
+  }
+]

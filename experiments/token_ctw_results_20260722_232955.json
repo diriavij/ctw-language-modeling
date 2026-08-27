@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-07-22T23:30:04.633170",
+  "train_chars": 500000,
+  "val_chars": 150000,
+  "char_ctw_bpc": 2.169990587810375,
+  "gpt2_bpc": 1.153775,
+  "entries": [
+    {
+      "variant": "Word-CTW D=1",
+      "type": "word",
+      "depth": 1,
+      "vocab_size": 10997,
+      "bpt": 11.731774910590055,
+      "bpc": 1.9831392308861429,
+      "avg_word_len": 4.858,
+      "ppl_word": 3401.0745413235973,
+      "train_time_s": 0.1,
+      "eval_time_s": 0.0
+    },
+    {
+      "variant": "Word-CTW D=2",
+      "type": "word",
+      "depth": 2,
+      "vocab_size": 10997,
+      "bpt": 12.19937298610449,
+      "bpc": 2.062182009571103,
+      "avg_word_len": 4.858,
+      "ppl_word": 4703.024022855742,
+      "train_time_s": 0.1,
+      "eval_time_s": 0.0
+    },
+    {
+      "variant": "Hierarchical char_D=5 word_D=2",
+      "type": "hierarchical",
+      "char_depth": 5,
+      "word_depth": 2,
+      "vocab_size": 20000,
+      "word_alpha": 0.01,
+      "bpc": 2.541917615843921,
+      "bpc_by_pos": {
+        "-1": 1.235527397423554,
+        "0": 4.145537490407278,
+        "1": 2.6500534430741696,
+        "2": 2.6366731226092988,
+        "3": 2.374897949735872,
+        "4": 2.3116601346644376,
+        "5": 2.4010240821715065,
+        "6+": 2.327623670465106
+      },
+      "train_time_s": 14.0,
+      "eval_time_s": 5.2
+    },
+    {
+      "variant": "FullWord char_D=5 word_D=2",
+      "type": "full_hierarchical",
+      "char_depth": 5,
+      "word_depth": 2,
+      "vocab_size": 20000,
+      "word_alpha": 0.01,
+      "bpc": 2.188539145644634,
+      "bpc_by_pos": {
+        "-1": 1.235527397423554,
+        "0": 11.640104831305816,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6+": 0.0
+      },
+      "train_time_s": 13.7,
+      "eval_time_s": 0.7
+    }
+  ]
+}

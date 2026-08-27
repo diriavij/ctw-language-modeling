@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software or its experimental results, please cite it as below."
+title: "Finite-Memory Language Modeling with Context Trees"
+type: software
+authors:
+  - family-names: Popov
+    given-names: Foma
+year: 2026
+url: "https://github.com/diriavij/ctw-language-modeling"
+license: MIT
+keywords:
+  - context-tree weighting
+  - language modeling
+  - information theory
+  - finite-memory models
+  - data sparsity

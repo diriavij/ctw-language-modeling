@@ -1,0 +1,248 @@
+{
+  "timestamp": "2026-07-30T04:11:03.147066",
+  "n_train_words": 1694397,
+  "n_val_words": 177009,
+  "vocab_sizes": [
+    500,
+    1000,
+    2000,
+    5000,
+    10000,
+    20000
+  ],
+  "depths": [
+    1,
+    2,
+    3
+  ],
+  "results": {
+    "500": {
+      "1": {
+        "bpt": 4.391798,
+        "bpc": 0.739273,
+        "bpc_with_spaces": 0.908273,
+        "vocab_actual": 500,
+        "coverage_train": 0.5845,
+        "coverage_val": 0.5872,
+        "ppl_word": 20.992,
+        "dmax_theory": 1.8722,
+        "fit_time_s": 0.81,
+        "eval_time_s": 0.08
+      },
+      "2": {
+        "bpt": 4.729679,
+        "bpc": 0.796149,
+        "bpc_with_spaces": 0.965149,
+        "vocab_actual": 500,
+        "coverage_train": 0.5845,
+        "coverage_val": 0.5872,
+        "ppl_word": 26.532,
+        "dmax_theory": 1.8722,
+        "fit_time_s": 1.6,
+        "eval_time_s": 0.1
+      },
+      "3": {
+        "bpt": 5.445068,
+        "bpc": 0.91657,
+        "bpc_with_spaces": 1.08557,
+        "vocab_actual": 500,
+        "coverage_train": 0.5845,
+        "coverage_val": 0.5872,
+        "ppl_word": 43.564,
+        "dmax_theory": 1.8722,
+        "fit_time_s": 2.63,
+        "eval_time_s": 0.13
+      }
+    },
+    "1000": {
+      "1": {
+        "bpt": 5.305068,
+        "bpc": 0.893004,
+        "bpc_with_spaces": 1.062004,
+        "vocab_actual": 1000,
+        "coverage_train": 0.66,
+        "coverage_val": 0.6647,
+        "ppl_word": 39.535,
+        "dmax_theory": 1.6843,
+        "fit_time_s": 0.84,
+        "eval_time_s": 0.08
+      },
+      "2": {
+        "bpt": 6.020267,
+        "bpc": 1.013394,
+        "bpc_with_spaces": 1.182394,
+        "vocab_actual": 1000,
+        "coverage_train": 0.66,
+        "coverage_val": 0.6647,
+        "ppl_word": 64.905,
+        "dmax_theory": 1.6843,
+        "fit_time_s": 1.68,
+        "eval_time_s": 0.11
+      },
+      "3": {
+        "bpt": 6.96426,
+        "bpc": 1.172297,
+        "bpc_with_spaces": 1.341297,
+        "vocab_actual": 1000,
+        "coverage_train": 0.66,
+        "coverage_val": 0.6647,
+        "ppl_word": 124.868,
+        "dmax_theory": 1.6843,
+        "fit_time_s": 3.02,
+        "eval_time_s": 0.15
+      }
+    },
+    "2000": {
+      "1": {
+        "bpt": 6.378697,
+        "bpc": 1.073728,
+        "bpc_with_spaces": 1.242728,
+        "vocab_actual": 2000,
+        "coverage_train": 0.7425,
+        "coverage_val": 0.7397,
+        "ppl_word": 83.211,
+        "dmax_theory": 1.5307,
+        "fit_time_s": 0.97,
+        "eval_time_s": 0.09
+      },
+      "2": {
+        "bpt": 7.519597,
+        "bpc": 1.265777,
+        "bpc_with_spaces": 1.434777,
+        "vocab_actual": 2000,
+        "coverage_train": 0.7425,
+        "coverage_val": 0.7397,
+        "ppl_word": 183.495,
+        "dmax_theory": 1.5307,
+        "fit_time_s": 2.01,
+        "eval_time_s": 0.12
+      },
+      "3": {
+        "bpt": 8.539473,
+        "bpc": 1.437453,
+        "bpc_with_spaces": 1.606453,
+        "vocab_actual": 2000,
+        "coverage_train": 0.7425,
+        "coverage_val": 0.7397,
+        "ppl_word": 372.081,
+        "dmax_theory": 1.5307,
+        "fit_time_s": 3.5,
+        "eval_time_s": 0.17
+      }
+    },
+    "5000": {
+      "1": {
+        "bpt": 8.085426,
+        "bpc": 1.361023,
+        "bpc_with_spaces": 1.530023,
+        "vocab_actual": 5000,
+        "coverage_train": 0.8481,
+        "coverage_val": 0.8371,
+        "ppl_word": 271.616,
+        "dmax_theory": 1.366,
+        "fit_time_s": 1.02,
+        "eval_time_s": 0.1
+      },
+      "2": {
+        "bpt": 9.649892,
+        "bpc": 1.62437,
+        "bpc_with_spaces": 1.79337,
+        "vocab_actual": 5000,
+        "coverage_train": 0.8481,
+        "coverage_val": 0.8371,
+        "ppl_word": 803.354,
+        "dmax_theory": 1.366,
+        "fit_time_s": 2.1,
+        "eval_time_s": 0.14
+      },
+      "3": {
+        "bpt": 10.476749,
+        "bpc": 1.763555,
+        "bpc_with_spaces": 1.932555,
+        "vocab_actual": 5000,
+        "coverage_train": 0.8481,
+        "coverage_val": 0.8371,
+        "ppl_word": 1425.003,
+        "dmax_theory": 1.366,
+        "fit_time_s": 4.09,
+        "eval_time_s": 0.21
+      }
+    },
+    "10000": {
+      "1": {
+        "bpt": 9.354336,
+        "bpc": 1.574619,
+        "bpc_with_spaces": 1.743619,
+        "vocab_actual": 10000,
+        "coverage_train": 0.9127,
+        "coverage_val": 0.893,
+        "ppl_word": 654.539,
+        "dmax_theory": 1.2632,
+        "fit_time_s": 1.12,
+        "eval_time_s": 0.1
+      },
+      "2": {
+        "bpt": 11.08696,
+        "bpc": 1.866272,
+        "bpc_with_spaces": 2.035272,
+        "vocab_actual": 10000,
+        "coverage_train": 0.9127,
+        "coverage_val": 0.893,
+        "ppl_word": 2175.242,
+        "dmax_theory": 1.2632,
+        "fit_time_s": 2.55,
+        "eval_time_s": 0.15
+      },
+      "3": {
+        "bpt": 11.715337,
+        "bpc": 1.972047,
+        "bpc_with_spaces": 2.141047,
+        "vocab_actual": 10000,
+        "coverage_train": 0.9127,
+        "coverage_val": 0.893,
+        "ppl_word": 3362.543,
+        "dmax_theory": 1.2632,
+        "fit_time_s": 4.21,
+        "eval_time_s": 0.21
+      }
+    },
+    "20000": {
+      "1": {
+        "bpt": 10.537367,
+        "bpc": 1.773759,
+        "bpc_with_spaces": 1.942759,
+        "vocab_actual": 20000,
+        "coverage_train": 0.9587,
+        "coverage_val": 0.9327,
+        "ppl_word": 1486.153,
+        "dmax_theory": 1.1748,
+        "fit_time_s": 1.2,
+        "eval_time_s": 0.11
+      },
+      "2": {
+        "bpt": 12.343912,
+        "bpc": 2.077855,
+        "bpc_with_spaces": 2.246855,
+        "vocab_actual": 20000,
+        "coverage_train": 0.9587,
+        "coverage_val": 0.9327,
+        "ppl_word": 5198.615,
+        "dmax_theory": 1.1748,
+        "fit_time_s": 2.7,
+        "eval_time_s": 0.18
+      },
+      "3": {
+        "bpt": 12.806092,
+        "bpc": 2.155654,
+        "bpc_with_spaces": 2.324654,
+        "vocab_actual": 20000,
+        "coverage_train": 0.9587,
+        "coverage_val": 0.9327,
+        "ppl_word": 7161.726,
+        "dmax_theory": 1.1748,
+        "fit_time_s": 4.45,
+        "eval_time_s": 0.23
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-07-21T13:23:11.010410",
+  "dataset": "WikiText-2 (full, normalized to 28-char alphabet)",
+  "gpt2_results": [
+    {
+      "model": "gpt2-large",
+      "n_tokens": 214503,
+      "n_chars": 1051557,
+      "chars_per_token": 4.902,
+      "ppl_token": 29.1904,
+      "bpc_per_token": 4.867423,
+      "bpc_per_char": 0.992886,
+      "perplexity_char": 1.9902,
+      "eval_time_s": 535.1
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-07-20T22:39:15.114021",
+  "dataset": "WikiText-2 (full, normalized to 28-char alphabet)",
+  "smoothing": "KT (Dirichlet-1/2) + suffix backoff",
+  "ngram_results": [
+    {
+      "order": 4,
+      "context_depth": 3,
+      "bpc": 2.371114311169946,
+      "perplexity": 5.17340562333839,
+      "train_time_s": 5.6,
+      "eval_time_s": 0.3
+    },
+    {
+      "order": 6,
+      "context_depth": 5,
+      "bpc": 1.9852595576125034,
+      "perplexity": 3.9593388926895607,
+      "train_time_s": 10.4,
+      "eval_time_s": 0.6
+    },
+    {
+      "order": 8,
+      "context_depth": 7,
+      "bpc": 2.2689268448500197,
+      "perplexity": 4.819644862672596,
+      "train_time_s": 18.7,
+      "eval_time_s": 1.1
+    },
+    {
+      "order": 11,
+      "context_depth": 10,
+      "bpc": 2.8495285306029285,
+      "perplexity": 7.207647873341063,
+      "train_time_s": 41.0,
+      "eval_time_s": 2.1
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-07-21T15:54:56.001358",
+  "dataset": "text8 (enwiki, normalized to 28-char alphabet)",
+  "train_chars": 2000000,
+  "val_chars": 200000,
+  "vocab_size": 27,
+  "ctw_results": [
+    {
+      "depth": 3,
+      "bpc": 2.6252209584105444,
+      "perplexity": 6.169788173665172,
+      "train_time_s": 34.3,
+      "eval_time_s": 3.1
+    },
+    {
+      "depth": 5,
+      "bpc": 2.3818470959543903,
+      "perplexity": 5.212036170483404,
+      "train_time_s": 55.1,
+      "eval_time_s": 4.7
+    },
+    {
+      "depth": 7,
+      "bpc": 2.398092875354168,
+      "perplexity": 5.271059127244729,
+      "train_time_s": 77.4,
+      "eval_time_s": 5.7
+    },
+    {
+      "depth": 10,
+      "bpc": 2.409825119644793,
+      "perplexity": 5.314099053812498,
+      "train_time_s": 108.9,
+      "eval_time_s": 6.4
+    }
+  ],
+  "ngram_results": [
+    {
+      "order": 4,
+      "context_depth": 3,
+      "bpc": 2.5095648184994537,
+      "perplexity": 5.694482811992336,
+      "train_time_s": 1.1,
+      "eval_time_s": 0.1
+    },
+    {
+      "order": 6,
+      "context_depth": 5,
+      "bpc": 2.359035110982592,
+      "perplexity": 5.130271265344666,
+      "train_time_s": 2.1,
+      "eval_time_s": 0.1
+    },
+    {
+      "order": 8,
+      "context_depth": 7,
+      "bpc": 2.7769112688464137,
+      "perplexity": 6.853834088694214,
+      "train_time_s": 3.7,
+      "eval_time_s": 0.2
+    },
+    {
+      "order": 11,
+      "context_depth": 10,
+      "bpc": 3.2140809920325717,
+      "perplexity": 9.279718179222321,
+      "train_time_s": 8.8,
+      "eval_time_s": 0.4
+    }
+  ],
+  "gpt2_results": [
+    {
+      "model": "gpt2",
+      "n_tokens": 41079,
+      "n_chars": 200000,
+      "chars_per_token": 4.869,
+      "ppl_token": 64.4172,
+      "bpc_per_token": 6.009373,
+      "bpc_per_char": 1.234295,
+      "perplexity_char": 2.3527,
+      "eval_time_s": 17.3
+    },
+    {
+      "model": "gpt2-large",
+      "n_tokens": 41079,
+      "n_chars": 200000,
+      "chars_per_token": 4.869,
+      "ppl_token": 37.7716,
+      "bpc_per_token": 5.23923,
+      "bpc_per_char": 1.076112,
+      "perplexity_char": 2.1083,
+      "eval_time_s": 105.4
+    }
+  ]
+}

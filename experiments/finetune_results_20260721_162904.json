@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-07-21T16:29:13.778896",
+  "model": "gpt2",
+  "epochs": 3,
+  "lr": 5e-05,
+  "block_size": 512,
+  "evaluations": [
+    {
+      "model": "gpt2",
+      "n_tokens": 214503,
+      "n_chars": 1051557,
+      "chars_per_token": 4.902,
+      "ppl_token": 50.4278,
+      "bpc_per_token": 5.656147,
+      "bpc_per_char": 1.153775,
+      "perplexity_char": 2.225,
+      "eval_time_s": 93.9,
+      "epoch": 0,
+      "label": "pretrained"
+    },
+    {
+      "model": "/Users/popovfoma/Desktop/summer_camp_project/experiments/gpt2_finetuned/epoch_1",
+      "n_tokens": 214503,
+      "n_chars": 1051557,
+      "chars_per_token": 4.902,
+      "ppl_token": 34.077,
+      "bpc_per_token": 5.090725,
+      "bpc_per_char": 1.038437,
+      "perplexity_char": 2.054,
+      "eval_time_s": 113.3,
+      "epoch": 1,
+      "label": "finetuned_epoch_1"
+    },
+    {
+      "model": "/Users/popovfoma/Desktop/summer_camp_project/experiments/gpt2_finetuned/epoch_2",
+      "n_tokens": 214503,
+      "n_chars": 1051557,
+      "chars_per_token": 4.902,
+      "ppl_token": 32.8663,
+      "bpc_per_token": 5.038536,
+      "bpc_per_char": 1.027791,
+      "perplexity_char": 2.0389,
+      "eval_time_s": 106.2,
+      "epoch": 2,
+      "label": "finetuned_epoch_2"
+    },
+    {
+      "model": "/Users/popovfoma/Desktop/summer_camp_project/experiments/gpt2_finetuned/epoch_3",
+      "n_tokens": 214503,
+      "n_chars": 1051557,
+      "chars_per_token": 4.902,
+      "ppl_token": 32.5212,
+      "bpc_per_token": 5.023308,
+      "bpc_per_char": 1.024685,
+      "perplexity_char": 2.0345,
+      "eval_time_s": 105.7,
+      "epoch": 3,
+      "label": "finetuned_epoch_3"
+    }
+  ]
+}
