@@ -1,3 +1,0 @@
-# Convenience install for development and experiments.
-# The core ctw package itself has no runtime dependencies.
--e .[experiments,test]
