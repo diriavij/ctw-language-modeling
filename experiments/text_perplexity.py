@@ -21,6 +21,8 @@ import time
 import unicodedata
 from datetime import datetime
 
+from _paths import result_path
+
 
 # -----------------------------------------------------------------------
 # Text normalization
@@ -183,13 +185,13 @@ def main():
     parser.add_argument("--gpt2_model", default="gpt2",
                         help="HuggingFace model name (default: gpt2)")
     parser.add_argument("--out", default=None,
-                        help="Output JSON path (default: auto-named in experiments/)")
+                        help="Output JSON path (default: auto-named in experiments/results/)")
     args = parser.parse_args()
 
     # Output file
     if args.out is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        args.out = os.path.join(os.path.dirname(__file__), f"full_results_{ts}.json")
+        args.out = result_path(f"full_results_{ts}.json")
 
     results = {
         "timestamp":   datetime.now().isoformat(),

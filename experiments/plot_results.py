@@ -2,14 +2,14 @@
 Publication-quality BPC vs. context depth plot.
 
 Reads (auto-discovered unless overridden):
-  experiments/full_results_*.json       — CTW + GPT-2 small   (WikiText-2)
-  experiments/ngram_results.json        — N-gram KT            (WikiText-2)
-  experiments/gpt2_scaling_results.json — GPT-2 large          (WikiText-2)
-  experiments/ptb_results_*.json        — PTB full results      (optional)
+  experiments/results/full_results_*.json       — CTW + GPT-2 small
+  experiments/results/ngram_results.json        — N-gram KT
+  experiments/results/gpt2_scaling_results.json — GPT-2 large
+  experiments/results/ptb_results_*.json        — text8 results (optional)
 
 Saves:
-  experiments/bpc_plot.pdf / .png   — single panel (WikiText-2 only)
-  experiments/bpc_plot_2panel.pdf/png — side-by-side if --ptb_json provided
+  experiments/figures/bpc_plot.pdf / .png — single WikiText-2 panel
+  experiments/figures/bpc_plot_2panel.pdf/png — optional side-by-side panel
 
 New in this version:
   - Shannon entropy line (~1.1 bpc) with uncertainty band
@@ -18,7 +18,7 @@ New in this version:
 
 Usage:
     python experiments/plot_results.py
-    python experiments/plot_results.py --ptb_json experiments/ptb_results_*.json
+    python experiments/plot_results.py --ptb_json experiments/results/ptb_results_*.json
 """
 
 import sys, os
@@ -28,6 +28,8 @@ import argparse
 import json
 import glob
 import math
+
+from _paths import FIGURES_DIR, RESULTS_DIR, ensure_artifact_dirs
 
 
 # -----------------------------------------------------------------------
@@ -72,13 +74,17 @@ def draw_panel(
     ctw_depths = [r["depth"] for r in ctw_data["ctw_results"]]
     ctw_bpc    = [r["bpc"]   for r in ctw_data["ctw_results"]]
     all_bpc.extend(ctw_bpc)
+    ngram_lookup = ({r["context_depth"]: r["bpc"]
+                     for r in ngram_data["ngram_results"]}
+                    if ngram_data else {})
 
     ax.plot(ctw_depths, ctw_bpc,
             "o-", color="#1565C0", linewidth=2, markersize=7,
             label="CTW (this work)", zorder=4)
     for d, b in zip(ctw_depths, ctw_bpc):
+        label_offset = -15 if d in ngram_lookup and b < ngram_lookup[d] else 9
         ax.annotate(f"{b:.3f}", (d, b),
-                    textcoords="offset points", xytext=(0, 9),
+                    textcoords="offset points", xytext=(0, label_offset),
                     ha="center", fontsize=7.5, color="#1565C0")
 
     # ---- N-gram curve ----
@@ -90,8 +96,10 @@ def draw_panel(
                 "s--", color="#E65100", linewidth=2, markersize=7,
                 label="N-gram KT (baseline)", zorder=4)
         for d, b in zip(ng_depths, ng_bpc):
+            ctw_at_depth = dict(zip(ctw_depths, ctw_bpc)).get(d)
+            label_offset = 9 if ctw_at_depth is not None and b > ctw_at_depth else -15
             ax.annotate(f"{b:.3f}", (d, b),
-                        textcoords="offset points", xytext=(0, -15),
+                        textcoords="offset points", xytext=(0, label_offset),
                         ha="center", fontsize=7.5, color="#E65100")
 
     # ---- GPT-2 horizontal lines ----
@@ -130,11 +138,17 @@ def draw_panel(
     x_min = min(ctw_depths) - 0.8
     x_max = max(ctw_depths) + 2.0
 
+    right_label_positions = []
     for label, bpc_val, color in gpt2_lines:
         ax.axhline(bpc_val, color=color, linestyle=":", linewidth=2,
                    alpha=0.9, label=f"{label}  ({bpc_val:.4f})", zorder=3)
-        ax.text(x_max - 0.1, bpc_val + 0.018, f"{bpc_val:.4f}",
-                ha="right", fontsize=7.5, color=color)
+        label_y = bpc_val + 0.018
+        while any(abs(label_y - existing) < 0.055 for existing in right_label_positions):
+            label_y += 0.055
+        right_label_positions.append(label_y)
+        ax.text(x_max - 0.1, label_y, f"{bpc_val:.4f}",
+                ha="right", fontsize=7.5, color=color,
+                bbox=dict(facecolor="white", edgecolor="none", alpha=0.75, pad=0.5))
 
     # ---- Shannon entropy line ----
     if show_shannon:
@@ -145,8 +159,14 @@ def draw_panel(
                    linewidth=1.5, alpha=0.85,
                    label=f"Shannon H(English) ≈ {SHANNON_CENTRAL} bpc", zorder=2)
         ax.axhspan(SHANNON_LO, SHANNON_HI, alpha=0.07, color="#B71C1C", zorder=1)
-        ax.text(x_max - 0.1, SHANNON_CENTRAL + 0.018,
-                f"H ≈ {SHANNON_CENTRAL}", ha="right", fontsize=7.5, color="#B71C1C")
+        shannon_label_y = SHANNON_CENTRAL + 0.018
+        while any(abs(shannon_label_y - existing) < 0.055
+                  for existing in right_label_positions):
+            shannon_label_y += 0.055
+        ax.text(x_max - 0.1, shannon_label_y,
+                f"H ≈ {SHANNON_CENTRAL}", ha="right", fontsize=7.5,
+                color="#B71C1C",
+                bbox=dict(facecolor="white", edgecolor="none", alpha=0.75, pad=0.5))
         all_bpc.extend([SHANNON_LO, SHANNON_HI])
 
     # ---- D_max vertical marker ----
@@ -184,7 +204,7 @@ def draw_panel(
     ax.grid(True, alpha=0.25, linestyle="--")
     ax.xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     if show_legend:
-        ax.legend(loc="upper right", fontsize=8, framealpha=0.9, edgecolor="#ccc")
+        ax.legend(loc="upper left", fontsize=8, framealpha=0.9, edgecolor="#ccc")
 
 
 # -----------------------------------------------------------------------
@@ -213,14 +233,14 @@ def main():
         print("matplotlib not installed — run: pip install matplotlib")
         return
 
-    exp_dir = os.path.dirname(__file__)
+    ensure_artifact_dirs()
 
     # Auto-discover files
-    ctw_json     = args.ctw_json     or find_latest(os.path.join(exp_dir, "full_results_*.json"))
-    ngram_json   = args.ngram_json   or os.path.join(exp_dir, "ngram_results.json")
-    scaling_json = args.gpt2_scaling_json or os.path.join(exp_dir, "gpt2_scaling_results.json")
-    ptb_json     = args.ptb_json     or find_latest(os.path.join(exp_dir, "ptb_results_*.json"))
-    out_prefix   = args.out_prefix   or os.path.join(exp_dir, "bpc_plot")
+    ctw_json     = args.ctw_json     or find_latest(os.path.join(str(RESULTS_DIR), "full_results_*.json"))
+    ngram_json   = args.ngram_json   or os.path.join(str(RESULTS_DIR), "ngram_results.json")
+    scaling_json = args.gpt2_scaling_json or os.path.join(str(RESULTS_DIR), "gpt2_scaling_results.json")
+    ptb_json     = args.ptb_json     or find_latest(os.path.join(str(RESULTS_DIR), "ptb_results_*.json"))
+    out_prefix   = args.out_prefix   or os.path.join(str(FIGURES_DIR), "bpc_plot")
 
     if not ctw_json or not os.path.exists(ctw_json):
         print("ERROR: no full_results_*.json found. Run text_perplexity.py first.")

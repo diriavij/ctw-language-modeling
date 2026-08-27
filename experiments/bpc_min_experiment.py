@@ -30,7 +30,7 @@ observation (gap is 4× at word starts) into an analytical formula.
 Usage:
     python experiments/bpc_min_experiment.py
     python experiments/bpc_min_experiment.py --depths 0 1 2 3 4 5 6 7
-    python experiments/bpc_min_experiment.py --plot_only experiments/bpc_min_results_*.json
+    python experiments/bpc_min_experiment.py --plot_only experiments/results/bpc_min_results_*.json
 """
 
 import sys, os
@@ -46,6 +46,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 
 from text_perplexity import normalize_text, load_wikitext2
+from _paths import RESULTS_DIR, figure_for_result, figure_path, result_path
 
 
 # ---------------------------------------------------------------------------
@@ -395,19 +396,19 @@ def main():
     if args.plot_only:
         with open(args.plot_only) as f:
             saved = json.load(f)
-        ctw_data   = load_ctw_results(exp_dir)
-        out_png    = args.plot_only.replace(".json", ".png")
-        gap_path   = os.path.join(exp_dir, "gap_analysis_results.json")
+        ctw_data   = load_ctw_results(str(RESULTS_DIR))
+        out_png    = figure_for_result(args.plot_only)
+        gap_path   = result_path("gap_analysis_results.json")
         word_ent   = saved.get("word_entropy", {})
         _plot(saved["bpc_min_results"], ctw_data, word_ent, out_png)
         # Also save stable copy
-        stable = os.path.join(exp_dir, "bpc_min_plot.png")
+        stable = figure_path("bpc_min_plot.png")
         _plot(saved["bpc_min_results"], ctw_data, word_ent, stable)
         return
 
     if args.out is None:
         ts       = datetime.now().strftime("%Y%m%d_%H%M%S")
-        args.out = os.path.join(exp_dir, f"bpc_min_results_{ts}.json")
+        args.out = result_path(f"bpc_min_results_{ts}.json")
 
     # ---- Load data ----
     print("Loading WikiText-2...")
@@ -450,7 +451,7 @@ def main():
     print(f"\n{'='*60}")
     print("Word-entropy decomposition analysis")
     print(f"{'='*60}")
-    gap_path   = os.path.join(exp_dir, "gap_analysis_results.json")
+    gap_path   = result_path("gap_analysis_results.json")
     word_ent   = word_entropy_analysis(train_text, gap_path)
     print(f"  Vocabulary:           {word_ent['vocab_size']:,} unique words")
     print(f"  Avg word length:      {word_ent['avg_word_length']:.3f} chars")
@@ -465,7 +466,7 @@ def main():
         print(f"  Formula fit:          |H_word/avg_L - observed| = {fit:.4f} bpc")
 
     # ---- Load CTW reference results ----
-    ctw_data = load_ctw_results(exp_dir)
+    ctw_data = load_ctw_results(str(RESULTS_DIR))
 
     # ---- Summary comparison ----
     print(f"\n{'='*60}")
@@ -505,10 +506,10 @@ def main():
     print(f"\nResults → {args.out}")
 
     # ---- Plot ----
-    out_png = args.out.replace(".json", ".png")
+    out_png = figure_for_result(args.out)
     _plot(bpc_min_results, ctw_data, word_ent, out_png)
     # Stable copy
-    stable = os.path.join(exp_dir, "bpc_min_plot.png")
+    stable = figure_path("bpc_min_plot.png")
     _plot(bpc_min_results, ctw_data, word_ent, stable)
 
 

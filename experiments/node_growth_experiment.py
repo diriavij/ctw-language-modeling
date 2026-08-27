@@ -34,6 +34,7 @@ from collections import Counter
 from datetime import datetime
 
 from text_perplexity import normalize_text, load_wikitext2
+from _paths import RESULTS_DIR, figure_for_result, figure_path, result_path
 
 
 # ---------------------------------------------------------------------------
@@ -57,7 +58,7 @@ def load_char_node_counts(exp_dir):
     Load empirical char-level context counts from existing bpc_min results.
     Returns {depth: n_unique_contexts} or None if no results found.
     """
-    files = sorted(glob.glob(os.path.join(exp_dir, "bpc_min_results_2*.json")))
+    files = sorted(glob.glob(os.path.join(str(RESULTS_DIR), "bpc_min_results_2*.json")))
     # Skip val results
     files = [f for f in files if "val" not in os.path.basename(f)]
     if not files:
@@ -218,7 +219,7 @@ def _plot(char_counts, n_train_chars, word_results, n_train_words, out_path):
     fig.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"Saved → {out_path}")
 
-    stable = os.path.join(os.path.dirname(out_path), "node_growth_plot.png")
+    stable = figure_path("node_growth_plot.png")
     fig.savefig(stable, dpi=150, bbox_inches="tight")
     print(f"Saved → {stable}")
     plt.close(fig)
@@ -239,7 +240,7 @@ def main():
     exp_dir = os.path.dirname(__file__)
     if args.out is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        args.out = os.path.join(exp_dir, f"node_growth_results_{ts}.json")
+        args.out = result_path(f"node_growth_results_{ts}.json")
 
     # ---- Load char-level counts from bpc_min results ----
     print("Loading char-level node counts from bpc_min results...")
@@ -317,7 +318,7 @@ def main():
     print(f"\nResults → {args.out}")
 
     # ---- Plot ----
-    out_png = args.out.replace(".json", ".png")
+    out_png = figure_for_result(args.out)
     _plot(char_counts, n_train_chars, word_results, n_train_words, out_png)
 
 

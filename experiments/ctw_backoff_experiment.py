@@ -12,7 +12,7 @@ Theoretical prediction:
   pred_alpha=0.5 should be worst for offline prediction (50% weight to unigram).
 
 Uses a subset of WikiText-2 (default 500K train / 150K val) for speed.
-Saves results to ctw_backoff_results.json and ctw_backoff_plot.png.
+Saves results under experiments/results/ and figures under experiments/figures/.
 
 Usage:
     python experiments/ctw_backoff_experiment.py
@@ -33,6 +33,7 @@ from datetime import datetime
 from ctw.text_ctw import TextCTW
 from text_perplexity import normalize_text, load_wikitext2
 from ngram_baseline import FastCharNgramKT
+from _paths import figure_for_result, result_path
 
 
 # -----------------------------------------------------------------------
@@ -123,7 +124,7 @@ def main():
 
     exp_dir = os.path.dirname(__file__)
     if args.out is None:
-        args.out = os.path.join(exp_dir, "ctw_backoff_results.json")
+        args.out = result_path("ctw_backoff_results.json")
 
     print("Loading WikiText-2...")
     train_raw, val_raw = load_wikitext2()
@@ -184,7 +185,7 @@ def main():
     for r in results["entries"]:
         print(f"{r['model']:<22}  {r['bpc']:>8.4f}  {r['perplexity']:>8.2f}")
 
-    _plot(results, args.out.replace(".json", ".png"))
+    _plot(results, figure_for_result(args.out))
     print(f"\nResults saved → {args.out}")
 
 

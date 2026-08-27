@@ -18,7 +18,7 @@ Compares three token-granularity variants against the existing char-level CTW:
       Directly addresses the gap found in gap_analysis.py.
       Metric: full BPC (every character predicted).
 
-Results saved to token_ctw_results.json and token_ctw_plot.png.
+Results are saved under experiments/results/ and figures under experiments/figures/.
 
 Usage:
     python experiments/token_ctw_experiment.py
@@ -40,6 +40,7 @@ from datetime import datetime
 
 from ctw.text_ctw import TextCTW
 from text_perplexity import normalize_text, load_wikitext2
+from _paths import RESULTS_DIR, figure_for_result, figure_path, result_path
 
 
 # -----------------------------------------------------------------------
@@ -747,7 +748,7 @@ def _plot(results, out_path, gap_analysis_path=None):
     print(f"Saved → {out_path}")
 
     # Also save to stable path for slides
-    stable = os.path.join(os.path.dirname(os.path.abspath(out_path)), "token_ctw_plot.png")
+    stable = figure_path("token_ctw_plot.png")
     fig.savefig(stable, dpi=150, bbox_inches="tight")
     print(f"Saved → {stable}")
 
@@ -783,15 +784,15 @@ def main():
         with open(args.plot_only) as f:
             res = json.load(f)
         exp_dir  = os.path.dirname(__file__)
-        out_png  = args.plot_only.replace(".json", ".png")
-        gap_path = os.path.join(exp_dir, "gap_analysis_results.json")
+        out_png  = figure_for_result(args.plot_only)
+        gap_path = result_path("gap_analysis_results.json")
         _plot(res, out_png, gap_analysis_path=gap_path)
         return
 
     exp_dir = os.path.dirname(__file__)
     if args.out is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        args.out = os.path.join(exp_dir, f"token_ctw_results_{ts}.json")
+        args.out = result_path(f"token_ctw_results_{ts}.json")
 
     # ---- Data ----
     print("Loading WikiText-2...")
@@ -809,7 +810,7 @@ def main():
     # Char-CTW BPC for reference (from existing results if available)
     char_ctw_bpc, gpt2_bpc = None, None
     import glob
-    for f in sorted(glob.glob(os.path.join(exp_dir, "full_results_*.json"))):
+    for f in sorted(glob.glob(os.path.join(str(RESULTS_DIR), "full_results_*.json"))):
         with open(f) as fh:
             d = json.load(fh)
         ctw_r = [r for r in d.get("ctw_results", []) if r["depth"] == 5]
@@ -900,8 +901,8 @@ def main():
     if gpt2_bpc:
         print(f"  {'GPT-2 small (reference)':<40}  BPC = {gpt2_bpc:.4f}")
 
-    gap_path = os.path.join(exp_dir, "gap_analysis_results.json")
-    _plot(results, args.out.replace(".json", ".png"), gap_analysis_path=gap_path)
+    gap_path = result_path("gap_analysis_results.json")
+    _plot(results, figure_for_result(args.out), gap_analysis_path=gap_path)
     print(f"\nResults → {args.out}")
 
 

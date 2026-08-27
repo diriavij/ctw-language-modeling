@@ -14,7 +14,7 @@ Note on comparison with CTW:
 Usage:
     python experiments/ngram_baseline.py
     python experiments/ngram_baseline.py --orders 4 6 8 11
-    python experiments/ngram_baseline.py --out experiments/ngram_results.json
+    python experiments/ngram_baseline.py --out experiments/results/ngram_results.json
 """
 
 import sys, os
@@ -28,6 +28,8 @@ import re
 import unicodedata
 from collections import Counter, defaultdict
 from datetime import datetime
+
+from _paths import result_path
 
 
 # -----------------------------------------------------------------------
@@ -195,11 +197,11 @@ def main():
         help="N-gram orders. Default [4,6,8,11] matches CTW depths [3,5,7,10]."
     )
     parser.add_argument("--out", default=None,
-                        help="Output JSON (default: experiments/ngram_results.json)")
+                        help="Output JSON (default: experiments/results/ngram_results.json)")
     args = parser.parse_args()
 
     if args.out is None:
-        args.out = os.path.join(os.path.dirname(__file__), "ngram_results.json")
+        args.out = result_path("ngram_results.json")
 
     print("Loading WikiText-2 (full dataset)...")
     train_raw, val_raw = load_wikitext2()

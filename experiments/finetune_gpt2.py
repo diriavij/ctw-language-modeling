@@ -32,6 +32,7 @@ import time
 from datetime import datetime
 
 from text_perplexity import normalize_text, load_wikitext2, run_gpt2
+from _paths import RESULTS_DIR, figure_for_result, result_path
 
 
 # -----------------------------------------------------------------------
@@ -165,13 +166,13 @@ def main():
     if args.plot_only:
         with open(args.plot_only) as f:
             results = json.load(f)
-        out_png = args.plot_only.replace(".json", ".png")
+        out_png = figure_for_result(args.plot_only)
         _plot(results, out_png)
         return
 
     if args.out is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        args.out = os.path.join(exp_dir, f"finetune_results_{ts}.json")
+        args.out = result_path(f"finetune_results_{ts}.json")
 
     save_dir = os.path.join(exp_dir, "gpt2_finetuned")
     os.makedirs(save_dir, exist_ok=True)
@@ -262,7 +263,7 @@ def main():
     print(f"\nResults saved → {args.out}")
     print(f"Checkpoints  → {save_dir}/")
 
-    _plot(results, args.out.replace(".json", ".png"))
+    _plot(results, figure_for_result(args.out))
 
 
 # -----------------------------------------------------------------------
@@ -289,7 +290,7 @@ def _plot(results: dict, out_path: str):
     # Try to load CTW best BPC from full_results_*.json
     ctw_bpc = None
     exp_dir = os.path.dirname(__file__)
-    ctw_files = sorted(_glob.glob(os.path.join(exp_dir, "full_results_*.json")))
+    ctw_files = sorted(_glob.glob(os.path.join(str(RESULTS_DIR), "full_results_*.json")))
     if ctw_files:
         try:
             with open(ctw_files[-1]) as f:

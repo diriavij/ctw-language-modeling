@@ -29,7 +29,7 @@ granularity.
 See the [research report](report.pdf) for the full methodology, results, and
 limitations, and the [slides](slides.pdf) for a shorter overview.
 
-![CTW and neural language-model comparison](experiments/bpc_plot_2panel.png)
+![CTW and neural language-model comparison](experiments/figures/bpc_plot_2panel.png)
 
 ## Repository structure
 
@@ -38,7 +38,7 @@ ctw/
   binary_ctw.py       Exact integer-arithmetic binary CTW implementation
   text_ctw.py         Practical interpolated context-tree model for text
   metrics.py          BPC, perplexity, and Markov-source utilities
-experiments/          Reproducible experiment and plotting scripts
+experiments/          Scripts plus separated results/ and figures/ artifacts
 tests/                Unit and synthetic-source validation tests
 report.{tex,pdf}      Full research report and LaTeX source
 slides.{tex,pdf}      Presentation and LaTeX source

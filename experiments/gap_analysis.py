@@ -35,6 +35,7 @@ from collections import defaultdict
 from datetime import datetime
 
 from text_perplexity import normalize_text, load_wikitext2
+from _paths import figure_for_result, result_path
 
 
 # -----------------------------------------------------------------------
@@ -214,7 +215,7 @@ def main():
     args = parser.parse_args()
 
     if args.out is None:
-        args.out = os.path.join(os.path.dirname(__file__), "gap_analysis_results.json")
+        args.out = result_path("gap_analysis_results.json")
 
     print("Loading WikiText-2...")
     train_raw, val_raw = load_wikitext2()
@@ -295,7 +296,7 @@ def main():
               f"{gap:>+8.4f}")
 
     # ---- Plot ----
-    _plot(results, args.out.replace(".json", ".png"))
+    _plot(results, figure_for_result(args.out))
 
 
 def _plot(results: dict, out_path: str):

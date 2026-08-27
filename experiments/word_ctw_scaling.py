@@ -28,7 +28,7 @@ D_max theory:  D_max = log_A(N / n_min)
 Usage:
     python experiments/word_ctw_scaling.py
     python experiments/word_ctw_scaling.py --vocab_sizes 500 1000 2000 5000 10000 20000
-    python experiments/word_ctw_scaling.py --plot_only experiments/word_ctw_scaling_*.json
+    python experiments/word_ctw_scaling.py --plot_only experiments/results/word_ctw_scaling_*.json
 """
 
 import sys, os
@@ -45,6 +45,7 @@ from datetime import datetime
 
 from text_perplexity import normalize_text, load_wikitext2
 from token_ctw_experiment import TokenNgramKT
+from _paths import RESULTS_DIR, figure_for_result, figure_path, result_path
 
 
 # ---------------------------------------------------------------------------
@@ -71,7 +72,7 @@ def encode(words, word2idx):
 def load_reference_bpc(exp_dir):
     """Load char-CTW D=5 and GPT-2 BPC from full_results."""
     char_ctw_bpc, gpt2_bpc = None, None
-    for f in sorted(glob.glob(os.path.join(exp_dir, "full_results_*.json"))):
+    for f in sorted(glob.glob(os.path.join(str(RESULTS_DIR), "full_results_*.json"))):
         with open(f) as fh:
             d = json.load(fh)
         for r in d.get("ctw_results", []):
@@ -266,7 +267,7 @@ def _plot(results, char_ctw_bpc, gpt2_bpc, n_train_words, out_path):
     fig.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"Saved → {out_path}")
 
-    stable = os.path.join(os.path.dirname(out_path), "word_ctw_scaling_plot.png")
+    stable = figure_path("word_ctw_scaling_plot.png")
     fig.savefig(stable, dpi=150, bbox_inches="tight")
     print(f"Saved → {stable}")
     plt.close(fig)
@@ -288,7 +289,7 @@ def main():
     exp_dir = os.path.dirname(__file__)
     if args.out is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        args.out = os.path.join(exp_dir, f"word_ctw_scaling_{ts}.json")
+        args.out = result_path(f"word_ctw_scaling_{ts}.json")
 
     char_ctw_bpc, gpt2_bpc = load_reference_bpc(exp_dir)
     print(f"Reference: Char-CTW D=5 = {char_ctw_bpc}  |  GPT-2 = {gpt2_bpc}")
@@ -300,7 +301,7 @@ def main():
         results = {int(vs): {int(d): v for d, v in dv.items()}
                    for vs, dv in saved["results"].items()}
         n_train_words = saved.get("n_train_words", 1_730_000)
-        out_png = args.plot_only.replace(".json", ".png")
+        out_png = figure_for_result(args.plot_only)
         _plot(results, char_ctw_bpc, gpt2_bpc, n_train_words, out_png)
         return
 
@@ -363,7 +364,7 @@ def main():
     print(f"\nResults → {args.out}")
 
     # ---- Plot ----
-    out_png = args.out.replace(".json", ".png")
+    out_png = figure_for_result(args.out)
     _plot(results, char_ctw_bpc, gpt2_bpc, n_train_words, out_png)
 
 

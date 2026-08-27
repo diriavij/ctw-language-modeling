@@ -18,6 +18,7 @@ import json
 from datetime import datetime
 
 from text_perplexity import normalize_text, load_wikitext2, run_gpt2
+from _paths import result_path
 
 
 def main():
@@ -28,11 +29,11 @@ def main():
         help="HuggingFace model names to evaluate (default: small/medium/large)"
     )
     parser.add_argument("--out", default=None,
-                        help="Output JSON (default: experiments/gpt2_scaling_results.json)")
+                        help="Output JSON (default: experiments/results/gpt2_scaling_results.json)")
     args = parser.parse_args()
 
     if args.out is None:
-        args.out = os.path.join(os.path.dirname(__file__), "gpt2_scaling_results.json")
+        args.out = result_path("gpt2_scaling_results.json")
 
     print("Loading WikiText-2 (validation only)...")
     _, val_raw = load_wikitext2()

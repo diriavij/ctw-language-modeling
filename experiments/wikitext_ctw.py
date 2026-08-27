@@ -21,6 +21,7 @@ import re
 import unicodedata
 
 from ctw.text_ctw import TextCTW
+from _paths import result_path
 
 
 def normalize_text(text: str) -> str:
@@ -154,7 +155,7 @@ def main():
               f"{r['train_time_s']:>10.1f}  {r['eval_time_s']:>10.1f}")
 
     # Save results
-    out_path = os.path.join(os.path.dirname(__file__), "wikitext_ctw_results.json")
+    out_path = result_path("wikitext_ctw_results.json")
     with open(out_path, "w") as f:
         json.dump(results, f, indent=2)
     print(f"\nResults saved to {out_path}")

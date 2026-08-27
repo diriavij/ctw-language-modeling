@@ -26,6 +26,7 @@ from datetime import datetime
 
 from text_perplexity import normalize_text, run_ctw, run_gpt2
 from ngram_baseline import FastCharNgramKT
+from _paths import result_path
 
 
 # -----------------------------------------------------------------------
@@ -98,7 +99,7 @@ def main():
 
     if args.out is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        args.out = os.path.join(os.path.dirname(__file__), f"ptb_results_{ts}.json")
+        args.out = result_path(f"ptb_results_{ts}.json")
 
     print("Loading text8 (English Wikipedia, character-level benchmark)...")
     train_raw, val_raw = load_text8()

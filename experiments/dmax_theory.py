@@ -14,15 +14,15 @@ n_min times, so backoff fires on most paths and additional depth buys nothing.
 This script:
   1. Plots D_max vs. corpus size N for several alphabet sizes (A=2,28,59,95,256)
   2. Marks our WikiText-2 and text8 operating points
-  3. Overlays empirical CTW saturation depths from full_results_*.json (if found)
+  3. Overlays empirical CTW saturation depths from results/full_results_*.json
   4. Shows a secondary axis: "% of leaves seen ≥ n_min" vs. depth
 
-Saves: experiments/dmax_theory.pdf / .png
+Saves: experiments/figures/dmax_theory.pdf / .png
 
 Usage:
     python experiments/dmax_theory.py
     python experiments/dmax_theory.py --nmin 5 --nmin 15 --nmin 50   # compare thresholds
-    python experiments/dmax_theory.py --ctw_json experiments/full_results_*.json
+    python experiments/dmax_theory.py --ctw_json experiments/results/full_results_*.json
 """
 
 import sys, os
@@ -32,6 +32,8 @@ import argparse
 import json
 import math
 import glob
+
+from _paths import FIGURES_DIR, RESULTS_DIR, ensure_artifact_dirs
 
 
 # -----------------------------------------------------------------------
@@ -118,16 +120,16 @@ def main():
     parser.add_argument("--out",     default=None)
     args = parser.parse_args()
 
-    exp_dir = os.path.dirname(__file__)
-    out_prefix = args.out or os.path.join(exp_dir, "dmax_theory")
+    ensure_artifact_dirs()
+    out_prefix = args.out or os.path.join(str(FIGURES_DIR), "dmax_theory")
 
     # Auto-discover result files
     def find_latest(pattern):
         files = sorted(glob.glob(pattern))
         return files[-1] if files else None
 
-    ctw_json = args.ctw_json or find_latest(os.path.join(exp_dir, "full_results_*.json"))
-    ptb_json = args.ptb_json or find_latest(os.path.join(exp_dir, "ptb_results_*.json"))
+    ctw_json = args.ctw_json or find_latest(os.path.join(str(RESULTS_DIR), "full_results_*.json"))
+    ptb_json = args.ptb_json or find_latest(os.path.join(str(RESULTS_DIR), "ptb_results_*.json"))
 
     try:
         import matplotlib
@@ -274,9 +276,8 @@ def _print_table(nmin_list, ctw_json=None, ptb_json=None):
         files = sorted(glob.glob(pattern))
         return files[-1] if files else None
 
-    exp_dir = os.path.dirname(__file__)
-    ctw_json = ctw_json or find_latest(os.path.join(exp_dir, "full_results_*.json"))
-    ptb_json = ptb_json or find_latest(os.path.join(exp_dir, "ptb_results_*.json"))
+    ctw_json = ctw_json or find_latest(os.path.join(str(RESULTS_DIR), "full_results_*.json"))
+    ptb_json = ptb_json or find_latest(os.path.join(str(RESULTS_DIR), "ptb_results_*.json"))
 
     print(f"\n{'='*65}")
     print(f"D_max = log_A(N / n_min)  for A=28 (our 28-char alphabet)")
