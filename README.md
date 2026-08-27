@@ -40,8 +40,8 @@ ctw/
   metrics.py          BPC, perplexity, and Markov-source utilities
 experiments/          Scripts plus separated results/ and figures/ artifacts
 tests/                Unit and synthetic-source validation tests
-report.{tex,pdf}      Full research report and LaTeX source
-slides.{tex,pdf}      Presentation and LaTeX source
+report.pdf            Full research report
+slides.pdf            Research presentation
 REFERENCE.md          Implementation notes and key equations
 ```
 
